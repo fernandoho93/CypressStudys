@@ -1,4 +1,4 @@
-﻿# Cypress Iniciante
+﻿# Cypress
 
 Projeto de testes E2E com Cypress para a loja de demonstração em https://automationpratice.com.br.
 
