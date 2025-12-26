@@ -1,29 +1,29 @@
-﻿# Cypress
+# Cypress
 
-Projeto de testes E2E com Cypress para a loja de demonstração em https://automationpratice.com.br.
+Projeto de testes E2E com Cypress para a loja de demostracao em https://automationpratice.com.br.
 
-## Pré-requisitos
+## Pre-requisitos
 - Node.js 18+
 - npm ou yarn
 
-## Instalação
-`ash
+## Instalacao
+```bash
 npm install
-`
+```
 
 ## Como rodar
 - Rodar em modo headless:
-`ash
+```bash
 npx cypress run --spec cypress/e2e/login.cy.js --config video=false
-`
+```
 - Abrir o Test Runner interativo:
-`ash
+```bash
 npx cypress open
-`
+```
 
 ## Estrutura
-- cypress.config.js: baseUrl configurado para o ambiente público.
-- cypress/e2e/login.cy.js: cenários de login (sucesso, validações, lembrar-me/link de cadastro) usando seletores da página.
+- `cypress.config.js`: baseUrl configurado para o ambiente publico.
+- `cypress/e2e/login.cy.js`: cenarios de login (sucesso, validacoes, lembrar-me/link de cadastro) usando seletores da pagina.
 
 ## Notas
-- Artefatos de execução (vídeos, screenshots) não estão versionados; adicione um .gitignore se for subir ao GitHub.
+- Artefatos de execucao (videos, screenshots) nao estao versionados; adicione um `.gitignore` se for subir ao GitHub.
