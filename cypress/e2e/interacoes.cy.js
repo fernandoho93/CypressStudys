@@ -46,7 +46,7 @@
     cy.get('.form-control').type('fernando@outlook.con{enter}');
   });
 
-  it.only('select - acessar aplicacao', () => {
+  it('select - acessar aplicacao', () => {
     cy.viewport(1280, 720);
     cy.visit('https://automationpratice.com.br/');
     cy.url().should('not.include', '/login');
@@ -57,5 +57,16 @@
 
     cy.visit('https://automationpratice.com.br/checkout-two');
     cy.get('#country').select('Colombia');
+  });
+
+  it('Checkbox e radio button', () => {
+    cy.viewport(1280, 720);
+    cy.visit('/');
+
+    cy.get('.footer_one_widget')
+      .contains('Checkout View One')
+      .click()
+
+    cy.get('#materialUnchecked').check().uncheck();
   });
 });
