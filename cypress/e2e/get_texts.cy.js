@@ -6,6 +6,6 @@ describe('Get Texts', () => {
     cy.get('.top_header_left > p')
         .then((element) => {
           console.log(element.text())
-    })
+     })
   })
 })
