@@ -2,7 +2,9 @@
 //Desafio Cypress - Cadastro de Usuário
 describe('cadastro de usuario', () => {
   const acessarCadastro = () => {
-    cy.visit('/');
+    cy.visit('/')
+      .get('.header-logo');
+      
     cy.contains('a, button', 'Cadastro', { matchCase: false }).click();
     cy.url({ timeout: 8000 }).should('include', '/register');
   };
