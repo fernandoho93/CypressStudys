@@ -49,7 +49,7 @@ describe('cadastro de usuario', () => {
 
     cy.get('#errorMessageFirstName', { timeout: 8000 })
       .should('be.visible')
-      .and('contain', 'O campo senha deve ter pelo menos 6 dí­gitos');
+      .and('contain', 'O campo senha deve ter pelo menos 6 dígitos');
   });
 
   it('Cadastro bem-sucedido - exibe mensagem Cadastro realizado e botao OK', () => {
