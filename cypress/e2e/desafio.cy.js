@@ -1,4 +1,4 @@
-/// <reference types="cypress" />
+﻿/// <reference types="cypress" />
 //Desafio Cypress - Cadastro de Usuario
 describe('cadastro de usuario', () => {
   const acessarCadastro = () => {
@@ -49,7 +49,7 @@ describe('cadastro de usuario', () => {
 
     cy.get('#errorMessageFirstName', { timeout: 8000 })
       .should('be.visible')
-      .and('contain', 'O campo senha deve ter pelo menos 6 dígitos');
+      .and('contain', 'O campo senha deve ter pelo menos 6 dí­gitos');
   });
 
   it('Cadastro bem-sucedido - exibe mensagem Cadastro realizado e botao OK', () => {
@@ -68,7 +68,7 @@ describe('cadastro de usuario', () => {
   });
 
   it('Cadastro com USUARIO TESTE DOIS - exibe mensagem Cadastro realizado e botao OK', () => {
-    // Cenario: cadastro com segundo usuario e senha 12347
+    // Cenario: cadastro com segundo usuario e senha 123473
     acessarCadastro();
 
     const email = `usuario${Date.now()}+dois@teste.com`;
@@ -82,3 +82,4 @@ describe('cadastro de usuario', () => {
     cy.contains('button', 'OK', { matchCase: false }).should('be.visible');
   });
 });
+
