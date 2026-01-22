@@ -49,7 +49,7 @@ describe('cadastro de usuario', () => {
 
     cy.get('#errorMessageFirstName', { timeout: 8000 })
       .should('be.visible')
-      .and('contain', 'O campo senha deve ter pelo menos 6 digitos');
+      .and('contain', 'O campo senha deve ter pelo menos 6 dígitos');
   });
 
   it('Cadastro bem-sucedido - exibe mensagem Cadastro realizado e botao OK', () => {
@@ -75,7 +75,7 @@ describe('cadastro de usuario', () => {
 
     cy.get('#user').clear().type('USUARIO TESTE DOIS');
     cy.get('#email').clear().type(email);
-    cy.get('#password').clear().type('12347');
+    cy.get('#password').clear().type('123473');
     cy.contains('button', 'CADASTRAR', { matchCase: false }).click();
 
     cy.contains('Cadastro realizado').should('be.visible');
