@@ -1,0 +1,89 @@
+﻿/// <reference types="cypress" />
+
+
+const user_data = require('../fixtures/desafio_valid_data.json');
+
+//Desafio Cypress - Cadastro de Usuario
+describe('cadastro de usuario', () => {
+  const acessarCadastro = () => {
+    cy.visit('/')
+      .get('.header-logo');
+      
+    cy.contains('a, button', 'Cadastro', { matchCase: false }).click();
+    cy.url({ timeout: 8000 }).should('include', '/register');
+  };
+
+  beforeEach(() => {
+    cy.viewport(1280, 720);
+  });
+
+  it('Validar campo nome vazio - deve exibir: O campo nome deve ser preenchido', () => {
+    // Cenario: acessar home, entrar em Cadastro e validar mensagem para nome vazio
+    acessarCadastro();
+
+    cy.get('#user').clear();
+    cy.get('#email').type(user_data.email);
+    cy.get('#password').type(user_data.password);
+    cy.contains('button', 'CADASTRAR', { matchCase: false }).click();
+
+    cy.get('#errorMessageFirstName', { timeout: 8000 })
+      .should('be.visible')
+      .and('contain', 'O campo nome deve ser prenchido');
+  });
+
+  it('Validar campo e-mail vazio - deve exibir: O campo e-mail deve ser preenchido corretamente', () => {
+    // Cenario: acessar home, entrar em Cadastro e validar mensagem para e-mail vazio
+    acessarCadastro();
+
+    cy.get('#user').clear().type(user_data.name);
+    cy.get('#password').clear().type(user_data.password);
+    cy.contains('button', 'CADASTRAR', { matchCase: false }).click();
+
+    cy.contains('O campo e-mail deve ser prenchido corretamente').should('be.visible');
+  });
+
+  it('Validar campo senha invalido - deve exibir: O campo senha deve ter pelo menos 6 digitos', () => {
+    // Cenario: acessar home, entrar em Cadastro e validar mensagem para senha invalida
+    acessarCadastro();
+
+    cy.get('#user').clear().type(user_data.name);
+    cy.get('#email').clear().type(user_data.email);
+    cy.get('#password').clear().type(user_data.invalid_pass);
+    cy.contains('button', 'CADASTRAR', { matchCase: false }).click();
+
+    cy.get('#errorMessageFirstName', { timeout: 8000 })
+      .should('be.visible')
+      .and('contain', 'O campo senha deve ter pelo menos 6 dígitos');
+  });
+
+  it('Cadastro bem-sucedido - exibe mensagem Cadastro realizado e botao OK', () => {
+    // Cenario: acessar home, entrar em Cadastro, preencher Nome, E-mail, Senha e validar mensagem de sucesso
+    acessarCadastro();
+
+    const email = `usuario${Date.now()}@teste.com`;
+
+    cy.get('#user').clear().type(user_data.name);
+    cy.get('#email').clear().type(email);
+    cy.get('#password').clear().type(user_data.password);
+    cy.contains('button', 'CADASTRAR', { matchCase: false }).click();
+
+    cy.contains('Cadastro realizado').should('be.visible');
+    cy.contains('button', 'OK', { matchCase: false }).should('be.visible');
+  });
+
+  it('Cadastro com USUARIO TESTE DOIS - exibe mensagem Cadastro realizado e botao OK', () => {
+    // Cenario: cadastro com segundo usuario e senha diferente
+    acessarCadastro();
+
+    const email = `usuario${Date.now()}+dois@teste.com`;
+
+    cy.get('#user').clear().type(user_data.name);
+    cy.get('#email').clear().type(email);
+    cy.get('#password').clear().type(user_data.password);
+    cy.contains('button', 'CADASTRAR', { matchCase: false }).click();
+
+    cy.contains('Cadastro realizado').should('be.visible');
+    cy.contains('button', 'OK', { matchCase: false }).should('be.visible');
+  });
+});
+
