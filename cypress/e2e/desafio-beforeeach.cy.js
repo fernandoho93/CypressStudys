@@ -4,22 +4,19 @@ const user_data = require('../fixtures/desafio_valid_data.json');
 
 //Desafio Cypress - Cadastro de Usuario
 describe('cadastro de usuario', () => {
-  const acessarCadastro = () => {
-    cy.visit('/')
-      .get('.header-logo');
-      
-    cy.contains('a, button', 'Cadastro', { matchCase: false }).click();
-    cy.url({ timeout: 8000 }).should('include', '/register');
-  };
 
   beforeEach(() => {
+    // Configurar viewport para desktop
     cy.viewport(1280, 720);
+
+    // Acessar página de cadastro antes de cada teste
+    cy.visit('/').get('.header-logo');
+    cy.contains('a, button', 'Cadastro', { matchCase: false }).click();
+    cy.url({ timeout: 8000 }).should('include', '/register');
   });
 
   it('Validar campo nome vazio - deve exibir: O campo nome deve ser preenchido', () => {
-    // Cenario: acessar home, entrar em Cadastro e validar mensagem para nome vazio
-    acessarCadastro();
-
+    // Cenario: validar mensagem para nome vazio
     cy.get('#user').clear();
     cy.get('#email').type(user_data.email);
     cy.get('#password').type(user_data.password);
@@ -31,9 +28,7 @@ describe('cadastro de usuario', () => {
   });
 
   it('Validar campo e-mail vazio - deve exibir: O campo e-mail deve ser preenchido corretamente', () => {
-    // Cenario: acessar home, entrar em Cadastro e validar mensagem para e-mail vazio
-    acessarCadastro();
-
+    // Cenario: validar mensagem para e-mail vazio
     cy.get('#user').clear().type(user_data.name);
     cy.get('#password').clear().type(user_data.password);
     cy.contains('button', 'CADASTRAR', { matchCase: false }).click();
@@ -42,9 +37,7 @@ describe('cadastro de usuario', () => {
   });
 
   it('Validar campo senha invalido - deve exibir: O campo senha deve ter pelo menos 6 digitos', () => {
-    // Cenario: acessar home, entrar em Cadastro e validar mensagem para senha invalida
-    acessarCadastro();
-
+    // Cenario: validar mensagem para senha invalida
     cy.get('#user').clear().type(user_data.name);
     cy.get('#email').clear().type(user_data.email);
     cy.get('#password').clear().type(user_data.invalid_pass);
@@ -56,9 +49,7 @@ describe('cadastro de usuario', () => {
   });
 
   it('Cadastro bem-sucedido - exibe mensagem Cadastro realizado e botao OK', () => {
-    // Cenario: acessar home, entrar em Cadastro, preencher Nome, E-mail, Senha e validar mensagem de sucesso
-    acessarCadastro();
-
+    // Cenario: preencher Nome, E-mail, Senha e validar mensagem de sucesso
     const email = `usuario${Date.now()}@teste.com`;
 
     cy.get('#user').clear().type(user_data.name);
@@ -72,8 +63,6 @@ describe('cadastro de usuario', () => {
 
   it('Cadastro com USUARIO TESTE DOIS - exibe mensagem Cadastro realizado e botao OK', () => {
     // Cenario: cadastro com segundo usuario e senha diferente
-    acessarCadastro();
-
     const email = `usuario${Date.now()}+dois@teste.com`;
 
     cy.get('#user').clear().type(user_data.name);
