@@ -1,12 +1,4 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
+
 //
 //
 // -- This is a parent command --
@@ -23,3 +15,18 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+/// <reference types="cypress" />
+
+Cypress.Commands.add('accessRegisterPage', () => {
+  cy.visit('/')
+    .get('.header-logo')
+
+  // entrou no registro
+  cy.get('.fa-lock')
+    .click()
+
+  // verifica se esta na pagina de cadastro
+  cy.get('#user')
+    .should('be.visible')
+})
